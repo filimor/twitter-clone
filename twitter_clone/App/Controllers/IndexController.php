@@ -28,7 +28,7 @@ class IndexController extends Action
         $user = Container::getModel('User');
         $user->__set('name', $_POST['name']);
         $user->__set('email', $_POST['email']);
-        $user->__set('password', $_POST['password']);
+        $user->__set('password', md5($_POST['password']));
         
         if($user->validateAccount() && count($user->getUserByMail()) == 0) {
             $user->save();
