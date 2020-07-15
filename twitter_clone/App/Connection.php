@@ -14,7 +14,7 @@ class Connection
 
             return $conn;
         } catch (\PDOException $e) {
-            // TODO Error handling
+            // TODO: Error handling
         }
     }
 }

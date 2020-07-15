@@ -8,3 +8,10 @@ CREATE TABLE users(
     email varchar(150) NOT NULL,
     password varchar(32) NOT NULL
 );
+
+CREATE TABLE tweets(
+	id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id_user int NOT NULL,
+	tweet varchar(140) NOT NULL,
+	date datetime DEFAULT CURRENT_TIMESTAMP
+);
