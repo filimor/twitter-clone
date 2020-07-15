@@ -28,6 +28,22 @@ class AppController extends Action
         header('Location: /timeline');
     }
 
+    public function whoToFollow()
+    {
+        $this->validateAuth();
+        $searchBy = isset($_GET['searchBy']) ? $_GET['searchBy'] : '';
+        $users = array();
+
+        if($searchBy != '') {
+            $user = Container::getModel('User');
+            $user->__set('name', $searchBy);
+            $users = $user->getAll();
+        }
+
+        $this->view->users = $users;
+        $this->render('whoToFollow');
+    }
+
     public function validateAuth()
     {
         session_start();
