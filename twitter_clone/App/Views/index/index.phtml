@@ -33,14 +33,14 @@
 					<button type="submit" class="btn btn-primary mb-2">Entrar</button>
 				</div>
 			</div>
-			<?php if($this->view->login == 'error') { ?>
+			<?php if ($this->view->login == 'error') { ?>
 			<div class="row">
 				<div class="col">
 					<span class="text text-danger">*E-mail ou senha inválido(s)</span>
 				</div>
 			</div>
 			<?php } ?>
-			<?php if($this->view->login == 'unauthorized') { ?>
+			<?php if ($this->view->login == 'unauthorized') { ?>
 			<div class="row">
 				<div class="col">
 					<span class="text text-danger">*É necessário fazer o login</span>

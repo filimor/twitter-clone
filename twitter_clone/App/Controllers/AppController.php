@@ -34,9 +34,10 @@ class AppController extends Action
         $searchBy = isset($_GET['searchBy']) ? $_GET['searchBy'] : '';
         $users = array();
 
-        if($searchBy != '') {
+        if ($searchBy != '') {
             $user = Container::getModel('User');
             $user->__set('name', $searchBy);
+            $user->__set('id', $_SESSION['id']);
             $users = $user->getAll();
         }
 
@@ -44,10 +45,27 @@ class AppController extends Action
         $this->render('whoToFollow');
     }
 
+    public function userAction()
+    {
+        $this->validateAuth();
+        $action = isset($_GET['action']) ? $_GET['action'] : '';
+        $id_user_following = isset($_GET['id_user']) ? $_GET['id_user'] : '';
+        $user = Container::getModel('User');
+        $user->__set('id', $_SESSION['id']);
+
+        if ($action == 'follow') {
+            $user->follow($id_user_following);
+        } elseif ($action == 'unfollow') {
+            $user->unfollow($id_user_following);
+        }
+
+        header('Location: /who_to_follow');
+    }
+
     public function validateAuth()
     {
         session_start();
-        if(!isset($_SESSION['id']) || $_SESSION['id'] == '' ||
+        if (!isset($_SESSION['id']) || $_SESSION['id'] == '' ||
             !isset($_SESSION['name']) || $_SESSION['name'] == '') {
             header('Location: /?login=unauthorized');
         }

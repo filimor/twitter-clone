@@ -14,7 +14,7 @@ class AuthController extends Action
 
         $user->auth();
 
-        if($user->__get('id') != '' && $user->__get('name')) {
+        if ($user->__get('id') != '' && $user->__get('name')) {
             session_start();
             $_SESSION['id'] = $user->__get('id');
             $_SESSION['name'] = $user->__get('name');

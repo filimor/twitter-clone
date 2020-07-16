@@ -26,7 +26,7 @@ abstract class Bootstrap
 	protected function run($url)
 	{
 		foreach ($this->getRoutes() as $key => $route) {
-			if($url == $route['route']) {
+			if ($url == $route['route']) {
 				$class = "App\\Controllers\\".ucfirst($route['controller']);
 				$controller = new $class;				
 				$action = $route['action'];

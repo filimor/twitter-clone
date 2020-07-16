@@ -15,3 +15,9 @@ CREATE TABLE tweets(
 	tweet varchar(140) NOT NULL,
 	date datetime DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE followers(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_user int NOT NULL,
+    id_user_following int NOT NULL
+);

@@ -30,7 +30,7 @@ class IndexController extends Action
         $user->__set('email', $_POST['email']);
         $user->__set('password', md5($_POST['password']));
         
-        if($user->validateAccount() && count($user->getUserByMail()) == 0) {
+        if ($user->validateAccount() && count($user->getUserByMail()) == 0) {
             $user->save();
             $this->render('registration');
         } else {
