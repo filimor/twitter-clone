@@ -33,16 +33,40 @@ class Tweet extends Model
 
     public function getAll()
     {
-        $query = "select t.id, t.id_user, u.name, t.tweet, DATE_FORMAT(t.date, '%d/%m/%y %H:%i') as date 
-        from tweets as t 
+        $query = "select t.id,
+            t.id_user,
+            u.name,
+            t.tweet,
+            DATE_FORMAT(t.date, '%d/%m/%y %H:%i') as date
+        from tweets as t
         left join users as u
         on t.id_user = u.id
-        where t.id_user = :id_user 
+        where
+            t.id_user = :id_user
+            or t.id_user in (
+                select id_user_following from followers
+                where id_user = :id_user
+                )
         order by t.date desc";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':id_user', $this->__get('id_user'));
         $stmt->execute();
-        
+
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    // TODO: public function getMyTweets()
+    // {
+    //     $query = "select t.id, t.id_user, u.name, t.tweet, DATE_FORMAT(t.date, '%d/%m/%y %H:%i') as date
+    //     from tweets as t
+    //     left join users as u
+    //     on t.id_user = u.id
+    //     where t.id_user = :id_user
+    //     order by t.date desc";
+    //     $stmt = $this->db->prepare($query);
+    //     $stmt->bindValue(':id_user', $this->__get('id_user'));
+    //     $stmt->execute();
+
+    //     return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    // }
 }
